@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>D-Lite Editor — Modern WYSIWYG Rich Text Editor Plugin</title>
+  <meta name="description" content="Plugin rich text editor modern, elegan, pengganti TinyMCE dengan direct image & file upload, progress bar live, dan bebas dari native alert/confirm dialogs.">
+  <link rel="stylesheet" href="dlite-editor.css">
+  <style>
+    :root {
+      --demo-bg: #f8fafc;
+      --demo-card-bg: #ffffff;
+      --demo-text: #0f172a;
+      --demo-border: #e2e8f0;
+      --demo-primary: #3b82f6;
+    }
+
+    [data-theme="dark"] {
+      --demo-bg: #0b0f19;
+      --demo-card-bg: #111827;
+      --demo-text: #f9fafb;
+      --demo-border: #1f2937;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--demo-bg);
+      color: var(--demo-text);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      transition: background-color 200ms ease, color 200ms ease;
+    }
+
+    /* Navbar */
+    .demo-navbar {
+      background-color: var(--demo-card-bg);
+      border-bottom: 1px solid var(--demo-border);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+    }
+
+    .demo-brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .demo-logo-icon {
+      width: 32px;
+      height: 32px;
+      background: linear-gradient(135deg, #3b82f6, #8b5cf6);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: 800;
+      font-size: 16px;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.35);
+    }
+
+    .demo-title {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.3px;
+    }
+
+    .demo-badge {
+      font-size: 11px;
+      font-weight: 600;
+      background-color: rgba(59, 130, 246, 0.12);
+      color: #3b82f6;
+      padding: 3px 8px;
+      border-radius: 999px;
+    }
+
+    .demo-nav-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Container */
+    .demo-main {
+      flex: 1;
+      max-width: 1100px;
+      width: 100%;
+      margin: 30px auto;
+      padding: 0 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 24px;
+    }
+
+    .demo-header-banner {
+      background: linear-gradient(135deg, rgba(59, 130, 246, 0.08) 0%, rgba(139, 92, 246, 0.08) 100%);
+      border: 1px solid var(--demo-border);
+      border-radius: 14px;
+      padding: 24px 28px;
+    }
+
+    .demo-header-banner h1 {
+      font-size: 24px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .demo-header-banner p {
+      color: #64748b;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* Controls Panel */
+    .demo-panel {
+      background-color: var(--demo-card-bg);
+      border: 1px solid var(--demo-border);
+      border-radius: 12px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .demo-panel-label {
+      font-size: 13px;
+      font-weight: 600;
+      color: #64748b;
+      margin-right: 6px;
+    }
+
+    .demo-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      border-radius: 8px;
+      cursor: pointer;
+      border: 1px solid var(--demo-border);
+      background-color: var(--demo-card-bg);
+      color: var(--demo-text);
+      transition: all 150ms ease;
+    }
+
+    .demo-btn:hover {
+      background-color: rgba(59, 130, 246, 0.08);
+      border-color: #3b82f6;
+      color: #3b82f6;
+    }
+
+    .demo-btn-primary {
+      background-color: #3b82f6;
+      border-color: #3b82f6;
+      color: #fff;
+    }
+
+    .demo-btn-primary:hover {
+      background-color: #2563eb;
+      color: #fff;
+    }
+
+    /* Editor Box */
+    .demo-editor-card {
+      background-color: var(--demo-card-bg);
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Output Preview */
+    .demo-output-card {
+      background-color: var(--demo-card-bg);
+      border: 1px solid var(--demo-border);
+      border-radius: 12px;
+      padding: 20px;
+    }
+
+    .demo-output-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 12px;
+    }
+
+    .demo-output-title {
+      font-size: 14px;
+      font-weight: 600;
+    }
+
+    .demo-code-view {
+      background-color: #0b0f19;
+      color: #38bdf8;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 13px;
+      line-height: 1.6;
+      padding: 16px;
+      border-radius: 8px;
+      max-height: 250px;
+      overflow-y: auto;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    /* Footer */
+    .demo-footer {
+      border-top: 1px solid var(--demo-border);
+      padding: 24px;
+      text-align: center;
+      font-size: 13px;
+      color: #64748b;
+      margin-top: 40px;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation Bar -->
+  <header class="demo-navbar">
+    <div class="demo-brand">
+      <div class="demo-logo-icon">D</div>
+      <span class="demo-title">D-Lite Editor</span>
+      <span class="demo-badge">v1.0.0 Plugin</span>
+    </div>
+      <a href="example.php" class="demo-btn demo-btn-primary" style="background:linear-gradient(135deg, #4f46e5, #9333ea);color:#fff;border:none;font-weight:600;">🐘 Contoh Form & Upload PHP (example.php)</a>
+      <button class="demo-btn" id="btn-theme-page" type="button">🌓 Tema</button>
+      <a href="PRD.md" target="_blank" class="demo-btn">📖 PRD</a>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="demo-main">
+    
+    <!-- Banner -->
+    <div class="demo-header-banner">
+      <h1>D-Lite Editor — Next-Gen WYSIWYG Editor</h1>
+      <p>Alternatif modern pengganti TinyMCE dengan fitur lengkap: <strong>Direct Image & File Upload</strong> (Drag-Drop, Paste screenshot, live progress bar), <strong>Zero Native Dialogs</strong> (bebas total dari alert/confirm jadul), serta desain UI elegan yang siap pakai.</p>
+    </div>
+
+    <!-- Playground Controls Panel -->
+    <div class="demo-panel">
+      <span class="demo-panel-label">Aksi Cepat:</span>
+      <button type="button" class="demo-btn demo-btn-primary" id="btn-get-html">Lihat Output HTML</button>
+      <button type="button" class="demo-btn" id="btn-sample-article">Muat Contoh Tulisan</button>
+      <button type="button" class="demo-btn" id="btn-test-find">Cari & Ganti Teks</button>
+      <button type="button" class="demo-btn" id="btn-test-special">Karakter & Emoji</button>
+      <button type="button" class="demo-btn" id="btn-test-video">Sisipkan Video</button>
+      <button type="button" class="demo-btn" id="btn-test-confirm">Uji Konfirmasi Kustom</button>
+      <button type="button" class="demo-btn" id="btn-test-toast">Uji Notifikasi Toast</button>
+      <button type="button" class="demo-btn" id="btn-clear-canvas">Kosongkan Editor</button>
+
+      <div style="display:flex;align-items:center;gap:6px;margin-left:auto;">
+        <span class="demo-panel-label">Backend Upload:</span>
+        <select id="select-upload-mode" class="demo-btn" style="padding:6px 10px;">
+          <option value="mock" selected>Simulator (Offline)</option>
+          <option value="php">PHP Server (upload.php)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- The Editor Mount Container -->
+    <div class="demo-editor-card">
+      <div id="my-rich-editor"></div>
+    </div>
+
+    <!-- Live Output Preview -->
+    <div class="demo-output-card">
+      <div class="demo-output-header">
+        <span class="demo-output-title">Live Clean HTML Output (getContent()):</span>
+        <button class="demo-btn" id="btn-copy-html">Salin HTML</button>
+      </div>
+      <pre class="demo-code-view" id="live-html-output">Sedang memuat...</pre>
+    </div>
+
+  </main>
+
+  <footer class="demo-footer">
+    D-Lite Editor Plugin — Dibuat untuk performa tinggi, zero external dependencies, dan pengalaman menulis terbaik.
+  </footer>
+
+  <!-- Scripts -->
+  <script type="module">
+    import { DLiteEditor, toast, modal, Sanitizer } from './dlite-editor.js';
+
+    // Mock Upload Simulator with realistic live progress bar (0% -> 100%)
+    const mockUploader = (file, onProgress) => {
+      return new Promise((resolve, reject) => {
+        let percent = 0;
+        const interval = setInterval(() => {
+          percent += Math.floor(Math.random() * 20) + 10;
+          if (percent > 100) percent = 100;
+          onProgress(percent);
+
+          if (percent >= 100) {
+            clearInterval(interval);
+            setTimeout(() => {
+              // Create local object URL for instant preview
+              const localUrl = URL.createObjectURL(file);
+              resolve({
+                success: true,
+                url: localUrl,
+                name: file.name,
+                size: file.size
+              });
+            }, 300);
+          }
+        }, 180);
+      });
+    };
+
+    // Initial content with rich sample showcase
+    const sampleArticleHTML = `
+      <h1>Memperkenalkan D-Lite Editor: Editor Teks Modern & Elegan</h1>
+      <p>Selamat datang di <strong>D-Lite Editor</strong>! Plugin ini dirancang khusus untuk memberikan pengalaman menulis artikel yang mulus, responsif, dan bebas dari dialog native browser yang mengganggu.</p>
+      
+      <h2>1. Sisipkan Gambar Secara Instan (Direct Upload)</h2>
+      <p>Anda dapat menambahkan gambar dengan 3 cara mudah:</p>
+      <div class="dlite-task-item">
+        <input type="checkbox" class="dlite-task-checkbox" checked />
+        <span class="dlite-task-text"><strong>Drag and Drop</strong>: Seret file gambar dari komputer Anda dan lepaskan langsung ke dalam kanvas.</span>
+      </div>
+      <div class="dlite-task-item">
+        <input type="checkbox" class="dlite-task-checkbox" checked />
+        <span class="dlite-task-text"><strong>Clipboard Paste (Ctrl+V)</strong>: Salin screenshot layar Anda dan langsung tempelkan di sini.</span>
+      </div>
+      <div class="dlite-task-item">
+        <input type="checkbox" class="dlite-task-checkbox" checked />
+        <span class="dlite-task-text"><strong>Modal File Picker</strong>: Klik ikon gambar di toolbar untuk memilih berkas atau memasukkan URL gambar eksternal.</span>
+      </div>
+
+      <figure class="dlite-media-figure dlite-align-center">
+        <img src="https://images.unsplash.com/photo-1542838132-92c53300491e?auto=format&fit=crop&w=900&q=80" alt="Contoh Foto Coding" class="dlite-media-image" style="width: 75%; height: auto;" />
+        <figcaption class="dlite-media-caption">Gambar di atas dapat diklik untuk mengubah ukuran (25%, 50%, 75%, 100%), perataan, atau alt text!</figcaption>
+      </figure>
+
+      <h2>2. Dukungan Lampiran Berkas Pintar (Smart File Card)</h2>
+      <p>Selain gambar, berkas dokumen seperti PDF, DOCX, atau ZIP dapat diunggah dan langsung ditampilkan sebagai kartu unduhan yang rapi:</p>
+
+      <div class="dlite-file-card" data-file-url="#" data-file-name="Panduan-Integrasi-D-Lite-Editor.pdf" data-file-size="2411724" contenteditable="false">
+        <div class="dlite-file-card-icon">
+          <span class="dlite-file-badge">PDF</span>
+        </div>
+        <div class="dlite-file-card-details">
+          <div class="dlite-file-card-name" title="Panduan-Integrasi-D-Lite-Editor.pdf">Panduan-Integrasi-D-Lite-Editor.pdf</div>
+          <div class="dlite-file-card-meta">2.3 MB • Dokumen</div>
+        </div>
+        <div class="dlite-file-card-actions">
+          <a href="#" class="dlite-file-card-btn" title="Unduh Berkas"><svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg></a>
+        </div>
+      </div>
+
+      <h2>3. Tabel Dinamis & Responsif</h2>
+      <p>Buat dan kelola struktur data dengan mudah menggunakan grid picker tabel interaktif:</p>
+      <div class="dlite-table-responsive">
+        <table class="dlite-table">
+          <thead>
+            <tr>
+              <th>Fitur</th>
+              <th>TinyMCE Standar</th>
+              <th>D-Lite Editor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Direct Upload (Drag/Paste)</td>
+              <td>Perlu konfigurasi manual/lisensi</td>
+              <td><strong>Otomatis & Live Progress</strong></td>
+            </tr>
+            <tr>
+              <td>Dialog & Konfirmasi</td>
+              <td>Masih sering alert() browser</td>
+              <td><strong>100% Custom Modal & Toast</strong></td>
+            </tr>
+            <tr>
+              <td>Dependensi</td>
+              <td>Sangat besar (~1MB+)</td>
+              <td><strong>Ringan & Zero Dependencies</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <blockquote>
+        "Desain yang baik bukan hanya tentang bagaimana sesuatu terlihat, tapi bagaimana sesuatu bekerja dengan mulus bagi penggunanya."
+      </blockquote>
+
+      <pre class="dlite-code-block"><code>// Contoh Inisialisasi Mudah
+const editor = new DLiteEditor({
+  selector: '#my-rich-editor',
+  height: '500px',
+  upload: {
+    endpoint: '/api/upload'
+  }
+});</code></pre>
+    `;
+
+    const outputPre = document.getElementById('live-html-output');
+    function updateOutputPreview(html) {
+      if (outputPre) {
+        outputPre.textContent = Sanitizer.formatHTML(html);
+      }
+    }
+
+    // Initialize D-Lite Editor
+    const editor = new DLiteEditor({
+      selector: '#my-rich-editor',
+      height: '520px',
+      placeholder: 'Mulai menuliskan artikel menarik Anda di sini...',
+      initialContent: sampleArticleHTML,
+      upload: {
+        customUploader: mockUploader,
+        maxFileSize: 15 * 1024 * 1024
+      },
+      onChange: (html) => {
+        updateOutputPreview(html);
+      }
+    });
+
+    updateOutputPreview(editor.getContent());
+
+    // Playground Buttons
+    document.getElementById('btn-get-html').addEventListener('click', () => {
+      const html = editor.getContent();
+      modal.open({
+        title: 'Output HTML Bersih (getContent())',
+        content: `<pre style="background:#0b0f19;color:#38bdf8;padding:16px;border-radius:8px;max-height:380px;overflow:auto;font-family:monospace;font-size:13px;white-space:pre-wrap;">${escapeHtml(Sanitizer.formatHTML(html))}</pre>`,
+        width: '640px',
+        buttons: [{ text: 'Tutup', type: 'primary' }]
+      });
+    });
+
+    document.getElementById('btn-sample-article').addEventListener('click', () => {
+      editor.setContent(sampleArticleHTML);
+      toast.success('Contoh artikel berhasil dimuat!');
+    });
+
+    document.getElementById('btn-test-find').addEventListener('click', () => {
+      editor.plugins.findReplace.openModal();
+    });
+
+    document.getElementById('btn-test-special').addEventListener('click', () => {
+      editor.plugins.specialChar.openModal();
+    });
+
+    document.getElementById('btn-test-video').addEventListener('click', () => {
+      editor.plugins.mediaEmbed.openModal();
+    });
+
+    document.getElementById('btn-test-confirm').addEventListener('click', async () => {
+      const result = await modal.confirm({
+        title: 'Uji Coba Dialog Konfirmasi',
+        message: 'Ini adalah dialog konfirmasi kustom D-Lite Editor tanpa menggunakan window.confirm(). Apakah Anda menyukainya?',
+        confirmText: 'Sangat Suka!',
+        cancelText: 'Tutup'
+      });
+      if (result) {
+        toast.success('Terima kasih atas konfirmasinya!');
+      } else {
+        toast.info('Konfirmasi dibatalkan.');
+      }
+    });
+
+    document.getElementById('btn-test-toast').addEventListener('click', () => {
+      toast.success('Operasi berhasil disimpan!');
+      setTimeout(() => toast.info('Auto-save telah disinkronkan ke server.'), 700);
+      setTimeout(() => toast.warning('Peringatan: Periksa format dokumen Anda.'), 1400);
+    });
+
+    document.getElementById('btn-clear-canvas').addEventListener('click', () => {
+      editor.clear();
+    });
+
+    document.getElementById('btn-copy-html').addEventListener('click', () => {
+      navigator.clipboard.writeText(editor.getContent()).then(() => {
+        toast.success('Kode HTML berhasil disalin ke clipboard!');
+      });
+    });
+
+    // Theme page toggle
+    document.getElementById('btn-theme-page').addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      const next = current === 'dark' ? 'light' : 'dark';
+      document.documentElement.setAttribute('data-theme', next);
+      if (editor) editor.toggleTheme();
+    });
+
+    // Upload backend mode switcher
+    document.getElementById('select-upload-mode').addEventListener('change', (e) => {
+      if (e.target.value === 'php') {
+        editor.plugins.uploader.options.customUploader = null;
+        editor.plugins.uploader.options.endpoint = 'upload.php';
+        toast.info('Backend upload diubah ke skrip PHP asli: "upload.php".');
+      } else {
+        editor.plugins.uploader.options.customUploader = mockUploader;
+        toast.info('Backend upload diubah ke mode Simulator Offline.');
+      }
+    });
+
+    function escapeHtml(string) {
+      const entityMap = {
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+      };
+      return String(string).replace(/[&<>"']/g, s => entityMap[s]);
+    }
+  </script>
+</body>
+</html>

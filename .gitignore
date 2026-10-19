@@ -1,0 +1,85 @@
+# ==============================================================================
+# D-Lite Editor - Git Ignore Configuration (.gitignore)
+# Specifies intentionally untracked files that Git should ignore
+# ==============================================================================
+
+# --- User Uploaded Content & Media ---
+# Never commit uploaded user files, documents, or images to GitHub
+/uploads/*
+!/uploads/.gitkeep
+!/uploads/.htaccess
+/release/uploads/*
+!/release/uploads/.gitkeep
+!/release/uploads/.htaccess
+
+# --- Dependency Directories ---
+node_modules/
+jspm_packages/
+web_modules/
+
+# --- Temporary Files, Caches & Logs ---
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+.pnpm-debug.log*
+logs/
+*.pid
+*.seed
+*.pid.lock
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+.eslintcache
+.stylelintcache
+*.tmp
+*.temp
+.cache/
+
+# --- Environment & Sensitive Credentials ---
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
+*.pem
+*.key
+*.cert
+
+# --- Operating System Generated Files ---
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+ehthumbs_vista.db
+Thumbs.db
+Thumbs.db:encryptable
+Desktop.ini
+$RECYCLE.BIN/
+
+# --- IDE & Editor Specific Folders ---
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*.swo
+*~
+*.bak
+
+# --- Archives & Package Distributables ---
+# Uncomment below if you host release ZIPs exclusively on GitHub Releases
+# *.zip
+# *.tar.gz
+# *.tgz
+
+# --- Internal Planning & Specification Documents ---
+PRD.md
+/PRD.md
+*.prd.md
+

@@ -1,0 +1,285 @@
+/* Custom Modal System (NO Native Alert / Confirm / Prompt) */
+.dlite-modal-overlay {
+  position: fixed;
+  inset: 0;
+  background-color: rgba(15, 23, 42, 0.45);
+  backdrop-filter: var(--dlite-backdrop-blur);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100000;
+  padding: 16px;
+  opacity: 0;
+  transition: opacity var(--dlite-transition-normal);
+  font-family: var(--dlite-font-sans);
+}
+
+.dlite-modal-overlay.dlite-modal-visible {
+  opacity: 1;
+}
+
+.dlite-modal-overlay.dlite-modal-leaving {
+  opacity: 0;
+}
+
+.dlite-modal-dialog {
+  background-color: var(--dlite-bg-main);
+  border: 1px solid var(--dlite-border);
+  border-radius: var(--dlite-radius-lg);
+  box-shadow: var(--dlite-shadow-lg);
+  width: 100%;
+  max-width: 500px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transform: scale(0.95) translateY(10px);
+  transition: transform var(--dlite-transition-normal);
+}
+
+.dlite-modal-visible .dlite-modal-dialog {
+  transform: scale(1) translateY(0);
+}
+
+.dlite-modal-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid var(--dlite-border);
+}
+
+.dlite-modal-title {
+  font-size: 16px;
+  font-weight: 600;
+  margin: 0;
+  color: var(--dlite-text-main);
+}
+
+.dlite-modal-close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--dlite-text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4px;
+  border-radius: var(--dlite-radius-sm);
+  transition: color var(--dlite-transition-fast), background-color var(--dlite-transition-fast);
+}
+
+.dlite-modal-close:hover {
+  background-color: var(--dlite-bg-hover);
+  color: var(--dlite-text-main);
+}
+
+.dlite-modal-body {
+  padding: 20px;
+  color: var(--dlite-text-main);
+}
+
+.dlite-modal-footer {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 14px 20px;
+  background-color: var(--dlite-bg-subtle);
+  border-top: 1px solid var(--dlite-border);
+}
+
+/* Modal Form Elements */
+.dlite-form-group {
+  margin-bottom: 16px;
+}
+
+.dlite-label {
+  display: block;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--dlite-text-main);
+  margin-bottom: 6px;
+}
+
+.dlite-input {
+  width: 100%;
+  padding: 10px 14px;
+  background-color: var(--dlite-bg-main);
+  border: 1px solid var(--dlite-border);
+  border-radius: var(--dlite-radius-sm);
+  color: var(--dlite-text-main);
+  font-size: 14px;
+  font-family: inherit;
+  outline: none;
+  box-sizing: border-box;
+  transition: border-color var(--dlite-transition-fast), box-shadow var(--dlite-transition-fast);
+}
+
+.dlite-input:focus {
+  border-color: var(--dlite-primary);
+  box-shadow: 0 0 0 3px var(--dlite-primary-subtle);
+}
+
+.dlite-form-checkbox {
+  margin-top: 12px;
+}
+
+.dlite-checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  color: var(--dlite-text-muted);
+  cursor: pointer;
+}
+
+/* Buttons */
+.dlite-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px 16px;
+  border-radius: var(--dlite-radius-sm);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all var(--dlite-transition-fast);
+  text-decoration: none;
+}
+
+.dlite-btn-sm {
+  padding: 6px 12px;
+  font-size: 12px;
+}
+
+.dlite-btn-primary {
+  background-color: var(--dlite-primary);
+  color: var(--dlite-primary-text);
+}
+
+.dlite-btn-primary:hover {
+  background-color: var(--dlite-primary-hover);
+}
+
+.dlite-btn-secondary {
+  background-color: var(--dlite-bg-main);
+  border-color: var(--dlite-border);
+  color: var(--dlite-text-main);
+}
+
+.dlite-btn-secondary:hover {
+  background-color: var(--dlite-bg-hover);
+}
+
+.dlite-btn-danger {
+  background-color: var(--dlite-danger);
+  color: #fff;
+}
+
+.dlite-btn-danger:hover {
+  background-color: var(--dlite-danger-hover);
+}
+
+/* Modal Tabs */
+.dlite-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--dlite-border);
+  margin-bottom: 16px;
+  gap: 8px;
+}
+
+.dlite-tab-btn {
+  background: transparent;
+  border: none;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--dlite-text-muted);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all var(--dlite-transition-fast);
+}
+
+.dlite-tab-btn.active {
+  color: var(--dlite-primary);
+  border-bottom-color: var(--dlite-primary);
+}
+
+.dlite-tab-pane {
+  display: none;
+}
+
+.dlite-tab-pane.active {
+  display: block;
+}
+
+/* Drop Area for Modals */
+.dlite-drop-area {
+  border: 2px dashed var(--dlite-border-hover);
+  border-radius: var(--dlite-radius-md);
+  padding: 28px 20px;
+  text-align: center;
+  background-color: var(--dlite-bg-subtle);
+  cursor: pointer;
+  transition: all var(--dlite-transition-fast);
+}
+
+.dlite-drop-area:hover {
+  border-color: var(--dlite-primary);
+  background-color: var(--dlite-primary-subtle);
+}
+
+.dlite-drop-icon {
+  color: var(--dlite-primary);
+  margin-bottom: 8px;
+}
+
+.dlite-drop-text {
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--dlite-text-main);
+  margin: 0 0 4px 0;
+}
+
+.dlite-drop-sub {
+  font-size: 12px;
+  color: var(--dlite-text-subtle);
+  display: block;
+  margin-bottom: 12px;
+}
+
+.dlite-hidden-input {
+  display: none;
+}
+
+/* Custom Confirm Dialog Content */
+.dlite-confirm-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+.dlite-confirm-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: var(--dlite-bg-hover);
+  color: var(--dlite-warning);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dlite-confirm-danger {
+  background-color: var(--dlite-danger-subtle);
+  color: var(--dlite-danger);
+}
+
+.dlite-confirm-message {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--dlite-text-main);
+}

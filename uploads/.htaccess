@@ -1,0 +1,24 @@
+# D-Lite Editor Security: Matikan eksekusi skrip di direktori uploads
+<IfModule mod_php.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php7.c>
+    php_flag engine off
+</IfModule>
+<IfModule mod_php8.c>
+    php_flag engine off
+</IfModule>
+RemoveHandler .php .phtml .php3 .php4 .php5 .php7 .php8 .phar
+Options -ExecCGI
+
+# Blokir eksekusi skrip untuk Apache FastCGI & PHP-FPM
+<FilesMatch "(?i)\.(php[0-9]?|phtml|phar|pl|py|cgi|sh|bat|exe|inc|htaccess)$">
+    <IfModule mod_authz_core.c>
+        Require all denied
+    </IfModule>
+    <IfModule !mod_authz_core.c>
+        Order allow,deny
+        Deny from all
+    </IfModule>
+</FilesMatch>
+

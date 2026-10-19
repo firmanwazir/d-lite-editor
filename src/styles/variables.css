@@ -1,0 +1,72 @@
+:root {
+  /* Font Family */
+  --dlite-font-sans: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --dlite-font-mono: 'JetBrains Mono', 'Fira Code', Consolas, Monaco, 'Courier New', monospace;
+
+  /* Light Theme (Default) */
+  --dlite-bg-main: #ffffff;
+  --dlite-bg-subtle: #f8fafc;
+  --dlite-bg-hover: #f1f5f9;
+  --dlite-bg-active: #e2e8f0;
+  
+  --dlite-border: #e2e8f0;
+  --dlite-border-hover: #cbd5e1;
+  --dlite-border-focus: #3b82f6;
+
+  --dlite-text-main: #0f172a;
+  --dlite-text-muted: #64748b;
+  --dlite-text-subtle: #94a3b8;
+
+  --dlite-primary: #3b82f6;
+  --dlite-primary-hover: #2563eb;
+  --dlite-primary-subtle: #eff6ff;
+  --dlite-primary-text: #ffffff;
+
+  --dlite-danger: #ef4444;
+  --dlite-danger-hover: #dc2626;
+  --dlite-danger-subtle: #fef2f2;
+
+  --dlite-success: #10b981;
+  --dlite-warning: #f59e0b;
+
+  --dlite-radius-sm: 6px;
+  --dlite-radius-md: 10px;
+  --dlite-radius-lg: 16px;
+
+  --dlite-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --dlite-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.08), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+  --dlite-shadow-lg: 0 12px 28px -4px rgba(0, 0, 0, 0.12), 0 8px 10px -6px rgba(0, 0, 0, 0.06);
+  --dlite-shadow-popover: 0 10px 30px rgba(15, 23, 42, 0.15);
+
+  --dlite-backdrop-blur: blur(12px);
+  --dlite-transition-fast: 150ms cubic-bezier(0.4, 0, 0.2, 1);
+  --dlite-transition-normal: 220ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Dark Theme */
+.dlite-theme-dark {
+  --dlite-bg-main: #0f172a;
+  --dlite-bg-subtle: #1e293b;
+  --dlite-bg-hover: #334155;
+  --dlite-bg-active: #475569;
+
+  --dlite-border: #334155;
+  --dlite-border-hover: #475569;
+  --dlite-border-focus: #60a5fa;
+
+  --dlite-text-main: #f8fafc;
+  --dlite-text-muted: #94a3b8;
+  --dlite-text-subtle: #64748b;
+
+  --dlite-primary: #3b82f6;
+  --dlite-primary-hover: #60a5fa;
+  --dlite-primary-subtle: rgba(59, 130, 246, 0.15);
+  --dlite-primary-text: #ffffff;
+
+  --dlite-danger-subtle: rgba(239, 68, 68, 0.15);
+
+  --dlite-shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.3);
+  --dlite-shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.4);
+  --dlite-shadow-lg: 0 16px 32px -4px rgba(0, 0, 0, 0.6);
+  --dlite-shadow-popover: 0 12px 35px rgba(0, 0, 0, 0.5);
+}

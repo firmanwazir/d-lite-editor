@@ -1,0 +1,110 @@
+/* Toast Notifications (NO Native Alert) */
+.dlite-toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 100001;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  pointer-events: none;
+  font-family: var(--dlite-font-sans);
+}
+
+.dlite-toast {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-width: 300px;
+  max-width: 420px;
+  padding: 12px 16px;
+  background-color: var(--dlite-bg-main);
+  border: 1px solid var(--dlite-border);
+  border-radius: var(--dlite-radius-md);
+  box-shadow: var(--dlite-shadow-lg);
+  color: var(--dlite-text-main);
+  position: relative;
+  overflow: hidden;
+  transform: translateX(100%);
+  opacity: 0;
+  transition: transform var(--dlite-transition-normal), opacity var(--dlite-transition-normal);
+  backdrop-filter: var(--dlite-backdrop-blur);
+}
+
+.dlite-toast.dlite-toast-visible {
+  transform: translateX(0);
+  opacity: 1;
+}
+
+.dlite-toast.dlite-toast-leaving {
+  transform: translateX(100%);
+  opacity: 0;
+}
+
+.dlite-toast-icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.dlite-toast-success .dlite-toast-icon { color: var(--dlite-success); }
+.dlite-toast-error .dlite-toast-icon { color: var(--dlite-danger); }
+.dlite-toast-warning .dlite-toast-icon { color: var(--dlite-warning); }
+.dlite-toast-info .dlite-toast-icon { color: var(--dlite-primary); }
+
+.dlite-toast-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.dlite-toast-title {
+  font-size: 13px;
+  font-weight: 600;
+  margin-bottom: 2px;
+  color: var(--dlite-text-main);
+}
+
+.dlite-toast-message {
+  font-size: 13px;
+  color: var(--dlite-text-muted);
+  line-height: 1.4;
+  word-break: break-word;
+}
+
+.dlite-toast-close {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: var(--dlite-text-subtle);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2px;
+  border-radius: 4px;
+  transition: color var(--dlite-transition-fast);
+}
+
+.dlite-toast-close:hover {
+  color: var(--dlite-text-main);
+}
+
+.dlite-toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background-color: var(--dlite-primary);
+  width: 100%;
+  animation: dlite-toast-shrink linear forwards;
+}
+
+.dlite-toast-error .dlite-toast-progress { background-color: var(--dlite-danger); }
+.dlite-toast-success .dlite-toast-progress { background-color: var(--dlite-success); }
+.dlite-toast-warning .dlite-toast-progress { background-color: var(--dlite-warning); }
+
+@keyframes dlite-toast-shrink {
+  from { width: 100%; }
+  to { width: 0%; }
+}

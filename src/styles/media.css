@@ -1,0 +1,298 @@
+/* Canvas Drag & Drop Overlay */
+.dlite-canvas.dlite-dropzone-active {
+  position: relative;
+  background-color: var(--dlite-primary-subtle);
+  outline: 2px dashed var(--dlite-primary) !important;
+  outline-offset: -4px;
+}
+
+/* Upload Progress Placeholder */
+.dlite-upload-placeholder {
+  margin: 1.5em 0;
+  padding: 16px 20px;
+  background-color: var(--dlite-bg-subtle);
+  border: 1px dashed var(--dlite-primary);
+  border-radius: var(--dlite-radius-md);
+  user-select: none;
+}
+
+.dlite-upload-inner {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.dlite-upload-info {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+}
+
+.dlite-upload-name {
+  font-weight: 600;
+  color: var(--dlite-text-main);
+}
+
+.dlite-upload-size {
+  color: var(--dlite-text-subtle);
+}
+
+.dlite-upload-percent {
+  margin-left: auto;
+  font-weight: 700;
+  color: var(--dlite-primary);
+}
+
+.dlite-upload-bar-track {
+  width: 100%;
+  height: 6px;
+  background-color: var(--dlite-border);
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.dlite-upload-bar-fill {
+  height: 100%;
+  background-color: var(--dlite-primary);
+  border-radius: 999px;
+  transition: width 150ms ease;
+}
+
+.dlite-upload-failed {
+  flex-direction: row;
+  align-items: center;
+  color: var(--dlite-danger);
+}
+
+.dlite-upload-fail-icon {
+  margin-right: 8px;
+}
+
+.dlite-upload-fail-text {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  font-size: 13px;
+}
+
+/* Image Figures & Alignment */
+.dlite-media-figure {
+  margin: 1.5em 0;
+  display: block;
+  clear: both;
+  position: relative;
+}
+
+/* Center Alignment */
+.dlite-media-figure.dlite-align-center,
+.dlite-align-center.dlite-media-figure {
+  display: block !important;
+  text-align: center !important;
+  margin: 1.5em auto !important;
+  float: none !important;
+  clear: both !important;
+}
+
+.dlite-media-figure.dlite-align-center .dlite-media-image {
+  margin: 0 auto !important;
+  display: inline-block !important;
+}
+
+/* Right Alignment */
+.dlite-media-figure.dlite-align-right,
+.dlite-align-right.dlite-media-figure {
+  display: block !important;
+  text-align: right !important;
+  margin: 1.5em 0 1.5em auto !important;
+  float: right !important;
+  clear: both;
+}
+
+.dlite-media-figure.dlite-align-right .dlite-media-image {
+  margin-left: auto !important;
+  margin-right: 0 !important;
+  display: inline-block !important;
+}
+
+/* Left Alignment */
+.dlite-media-figure.dlite-align-left,
+.dlite-align-left.dlite-media-figure {
+  display: block !important;
+  text-align: left !important;
+  margin: 1.5em auto 1.5em 0 !important;
+  float: left !important;
+  clear: both;
+}
+
+.dlite-media-figure.dlite-align-left .dlite-media-image {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+  display: inline-block !important;
+}
+
+.dlite-media-image {
+  max-width: 100%;
+  height: auto;
+  border-radius: var(--dlite-radius-sm);
+  display: inline-block;
+  transition: box-shadow var(--dlite-transition-fast);
+  cursor: pointer;
+}
+
+.dlite-media-image.dlite-selected-img {
+  outline: 3px solid var(--dlite-primary);
+  outline-offset: 2px;
+  box-shadow: var(--dlite-shadow-md);
+}
+
+.dlite-media-caption {
+  font-size: 13px;
+  color: var(--dlite-text-muted);
+  text-align: inherit;
+  margin-top: 8px;
+  font-style: italic;
+  outline: none;
+}
+
+.dlite-media-caption:empty:before {
+  content: attr(data-placeholder);
+  color: var(--dlite-text-subtle);
+  pointer-events: none;
+}
+
+/* File Attachment Container & Alignment */
+.dlite-file-container {
+  margin: 1em 0;
+  clear: both;
+  display: block;
+}
+
+.dlite-file-container.dlite-align-left {
+  text-align: left !important;
+}
+
+.dlite-file-container.dlite-align-center {
+  text-align: center !important;
+}
+
+.dlite-file-container.dlite-align-right {
+  text-align: right !important;
+}
+
+/* Smart File Attachment Card */
+.dlite-file-card {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background-color: var(--dlite-bg-subtle);
+  border: 1px solid var(--dlite-border);
+  border-radius: var(--dlite-radius-md);
+  max-width: 380px;
+  box-shadow: var(--dlite-shadow-sm);
+  transition: all var(--dlite-transition-fast);
+  user-select: none;
+  text-align: left;
+}
+
+.dlite-file-card:hover {
+  border-color: var(--dlite-border-hover);
+  box-shadow: var(--dlite-shadow-md);
+}
+
+.dlite-file-card-icon {
+  flex-shrink: 0;
+}
+
+.dlite-file-badge {
+  background-color: var(--dlite-primary);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 700;
+  padding: 4px 6px;
+  border-radius: 4px;
+  letter-spacing: 0.5px;
+}
+
+.dlite-file-card-details {
+  flex: 1;
+  min-width: 0;
+}
+
+.dlite-file-card-name {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--dlite-text-main);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dlite-file-card-meta {
+  font-size: 11px;
+  color: var(--dlite-text-muted);
+}
+
+.dlite-file-card-actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dlite-file-card-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 28px;
+  height: 28px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  color: var(--dlite-text-muted);
+  cursor: pointer;
+  text-decoration: none;
+  transition: all var(--dlite-transition-fast);
+}
+
+.dlite-file-card-btn:hover {
+  background-color: var(--dlite-bg-hover);
+  color: var(--dlite-text-main);
+}
+
+.dlite-btn-danger-hover:hover {
+  color: var(--dlite-danger) !important;
+  background-color: var(--dlite-danger-subtle) !important;
+}
+
+/* Responsive Table */
+.dlite-table-responsive {
+  width: 100%;
+  overflow-x: auto;
+  margin: 1.5em 0;
+  clear: both;
+}
+
+.dlite-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 14px;
+  text-align: left;
+}
+
+.dlite-table th,
+.dlite-table td {
+  border: 1px solid var(--dlite-border);
+  padding: 10px 14px;
+  min-width: 60px;
+}
+
+.dlite-table th {
+  background-color: var(--dlite-bg-subtle);
+  font-weight: 600;
+  color: var(--dlite-text-main);
+}
+
+.dlite-table tr:hover td {
+  background-color: rgba(0, 0, 0, 0.015);
+}

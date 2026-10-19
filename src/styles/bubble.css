@@ -1,0 +1,87 @@
+/* Floating Bubbles & Popovers */
+.dlite-bubble-menu,
+.dlite-image-bubble,
+.dlite-table-bubble,
+.dlite-link-popover {
+  position: fixed;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  background-color: var(--dlite-bg-main);
+  border: 1px solid var(--dlite-border);
+  border-radius: var(--dlite-radius-md);
+  box-shadow: var(--dlite-shadow-popover);
+  padding: 4px;
+  z-index: 9999;
+  transition: opacity var(--dlite-transition-fast), transform var(--dlite-transition-fast);
+  backdrop-filter: var(--dlite-backdrop-blur);
+}
+
+.dlite-bubble-hidden {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  transform: scale(0.95) translateY(4px);
+}
+
+.dlite-bubble-group {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+}
+
+.dlite-bubble-sep {
+  width: 1px;
+  height: 18px;
+  background-color: var(--dlite-border);
+  margin: 0 4px;
+}
+
+.dlite-bubble-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 28px;
+  padding: 0 8px;
+  background: transparent;
+  border: none;
+  border-radius: var(--dlite-radius-sm);
+  color: var(--dlite-text-main);
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--dlite-transition-fast);
+}
+
+.dlite-bubble-btn:hover {
+  background-color: var(--dlite-bg-hover);
+  color: var(--dlite-primary);
+}
+
+.dlite-bubble-danger:hover {
+  background-color: var(--dlite-danger-subtle) !important;
+  color: var(--dlite-danger) !important;
+}
+
+/* Link Popover specifics */
+.dlite-link-preview-url {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  max-width: 240px;
+  padding: 0 8px;
+  color: var(--dlite-primary);
+  text-decoration: none;
+  font-size: 13px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.dlite-link-preview-url:hover {
+  text-decoration: underline;
+}
+
+.dlite-link-preview-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

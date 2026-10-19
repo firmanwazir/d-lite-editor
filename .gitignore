@@ -73,10 +73,10 @@ $RECYCLE.BIN/
 *.bak
 
 # --- Archives & Package Distributables ---
-# Uncomment below if you host release ZIPs exclusively on GitHub Releases
-# *.zip
-# *.tar.gz
-# *.tgz
+# Release ZIPs are hosted on GitHub Releases, not in git tracking
+*.zip
+*.tar.gz
+*.tgz
 
 # --- Internal Planning & Specification Documents ---
 PRD.md

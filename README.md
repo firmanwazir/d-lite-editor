@@ -2,9 +2,6 @@
 
 A lightweight, zero-dependency WYSIWYG rich text editor built with vanilla JavaScript and CSS. Designed as an efficient, modern replacement for heavyweight editors, D-Lite Editor provides a comprehensive editing toolbar, direct image and file uploads with progress tracking, built-in XSS sanitization, and a native modal/toast UI system without relying on third-party libraries.
 
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Dependencies: 0](https://img.shields.io/badge/dependencies-0-brightgreen.svg)](#)
-[![Module: UMD & ESM](https://img.shields.io/badge/module-UMD%20%7C%20ESM-orange.svg)](#)
 
 ---
 
@@ -253,19 +250,3 @@ This generates:
 - `release/dlite-editor.css` & `release/dlite-editor.min.css`
 - `release/index.html` (interactive demo page)
 - `release/upload.php`
-
----
-
-## Browser Support
-
-Compatible with all modern Evergreen browsers:
-- Google Chrome (latest)
-- Mozilla Firefox (latest)
-- Apple Safari (latest)
-- Microsoft Edge (latest)
-
----
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).

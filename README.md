@@ -38,8 +38,6 @@ A lightweight, zero-dependency WYSIWYG rich text editor built with vanilla JavaS
 - **Real-time Status Bar**: Live word counter, character counter, and estimated reading time.
 - **Theme Support**: Integrated Light and Dark mode with instant toggle.
 
-### Security
-- **Built-in Sanitizer**: Automatic client-side HTML sanitation using strict tag allowlists, attribute filtering, and URI scheme validation to mitigate XSS vulnerabilities.
 
 ---
 
